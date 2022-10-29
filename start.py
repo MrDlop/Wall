@@ -1,4 +1,4 @@
-from asyncio import sleep
+from asyncio import sleep, run
 from sqlite3 import connect
 from requests import get
 from ctypes import windll
@@ -23,3 +23,5 @@ async def start():
         con.close()
         windll.user32.SystemParametersInfoW(20, 0, path, 0)
         await sleep(home[4])
+
+run(start())

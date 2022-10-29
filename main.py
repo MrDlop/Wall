@@ -4,6 +4,8 @@ from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 
 import function
+from shutil import copy
+from getpass import getuser
 
 
 def clickedStart():
@@ -41,12 +43,18 @@ class MyWidget(QMainWindow):
         self.witherBut_5.clicked.connect(self.clickedWeatherButton)
         self.witherBut_6.clicked.connect(self.clickedWeatherButton)
         self.pushButton.clicked.connect(clickedStart)
+        self.butAutoload.clicked.connect(self.clickedAutoload)
+
+    def clickedAutoload(self):
+        USER_NAME = getuser()
+        bat_path = r'C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\start.lnk' % USER_NAME
+        copy(r'start.exe - Ярлык.lnk', bat_path)
 
     def clickedButtonTime(self):
         con = connect('bd')
         cur = con.cursor()
         cur.execute(f"""UPDATE homeInfo SET 
-                                    time={self.spinTime.text()} 
+                                    time={int(self.spinTime.text()) * 3600} 
                                                     WHERE true""")
         con.commit()
         con.close()
