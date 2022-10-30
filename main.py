@@ -44,6 +44,25 @@ class MyWidget(QMainWindow):
         self.witherBut_6.clicked.connect(self.clickedWeatherButton)
         self.pushButton.clicked.connect(clickedStart)
         self.butAutoload.clicked.connect(self.clickedAutoload)
+        self.butAIImage.clicked.connect(self.clickedAIImage)
+
+    def clickedAIImage(self):
+        if self.sender().isChecked():
+            con = connect('bd')
+            cur = con.cursor()
+            cur.execute(f"""UPDATE homeInfo SET
+                                                type_1=1
+                                                                WHERE true""")
+            con.commit()
+            con.close()
+        else:
+            con = connect('bd')
+            cur = con.cursor()
+            cur.execute(f"""UPDATE homeInfo SET
+                                                type_1=0
+                                                                WHERE true""")
+            con.commit()
+            con.close()
 
     def clickedAutoload(self):
         USER_NAME = getuser()

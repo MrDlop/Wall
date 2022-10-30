@@ -248,7 +248,7 @@
    <widget class="QPushButton" name="butAutoload">
     <property name="geometry">
      <rect>
-      <x>344</x>
+      <x>10</x>
       <y>340</y>
       <width>81</width>
       <height>24</height>
@@ -256,6 +256,19 @@
     </property>
     <property name="text">
      <string>Автозагрузка</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="butAIImage">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>340</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ИИ картинки</string>
     </property>
    </widget>
   </widget>
