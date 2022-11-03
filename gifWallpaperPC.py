@@ -4,6 +4,7 @@ from asyncio import sleep, run
 
 path = r"resurse/iloveimg-converted"
 
+
 async def start():
     while True:
         for address, dirs, files in os.walk(path):

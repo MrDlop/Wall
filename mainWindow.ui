@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>443</width>
-    <height>416</height>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,14 +18,14 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>40</y>
       <width>181</width>
       <height>98</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="label_city">
        <property name="text">
         <string>Название города</string>
        </property>
@@ -54,14 +54,14 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>150</y>
       <width>181</width>
       <height>120</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_coords">
        <property name="text">
         <string>Координаты</string>
        </property>
@@ -78,7 +78,7 @@
       <widget class="QLineEdit" name="lineEditY"/>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="label_length">
        <property name="text">
         <string>Долгота</string>
        </property>
@@ -88,7 +88,7 @@
       <widget class="QLineEdit" name="lineEditX"/>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_latitude">
        <property name="text">
         <string>Широта</string>
        </property>
@@ -107,14 +107,14 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>250</y>
+      <y>280</y>
       <width>181</width>
       <height>81</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="label_clock">
        <property name="text">
         <string>Через сколько часов проверять</string>
        </property>
@@ -140,14 +140,14 @@
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>10</y>
+      <y>40</y>
       <width>221</width>
       <height>321</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="1" column="0">
-      <widget class="QLabel" name="label_15">
+      <widget class="QLabel" name="label_wither_2">
        <property name="text">
         <string>Пасмурно</string>
        </property>
@@ -161,35 +161,35 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_18">
+      <widget class="QLabel" name="label_wither_5">
        <property name="text">
         <string>Морось</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_14">
+      <widget class="QLabel" name="label_wither_1">
        <property name="text">
         <string>Дождь</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_17">
+      <widget class="QLabel" name="label_wither_4">
        <property name="text">
         <string>Гроза</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_16">
+      <widget class="QLabel" name="label_wither_3">
        <property name="text">
         <string>Снег</string>
        </property>
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="label_19">
+      <widget class="QLabel" name="label_wither_6">
        <property name="text">
         <string>Ясно</string>
        </property>
@@ -236,7 +236,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>340</y>
+      <y>370</y>
       <width>75</width>
       <height>24</height>
      </rect>
@@ -249,7 +249,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>340</y>
+      <y>370</y>
       <width>81</width>
       <height>24</height>
      </rect>
@@ -262,13 +262,23 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>340</y>
+      <y>370</y>
       <width>91</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>ИИ картинки</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="languageBox">
+    <property name="geometry">
+     <rect>
+      <x>311</x>
+      <y>10</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
     </property>
    </widget>
   </widget>

@@ -12,7 +12,7 @@ def weatherNowCity(s_city):
         data = get(f"http://api.openweathermap.org/data/2.5/weather?"
                    f"q={s_city}&type=like&APPID={config.appid}").json()
         return data['weather'][0]['main']
-    except Exception as e:
+    except Exception:
         return False
 
 
@@ -21,5 +21,27 @@ def weatherNowCoords(x, y):
         data = get(f"http://api.openweathermap.org/data/2.5/weather?"
                    f"lat={x}&lon={y}&type=like&APPID={config.appid}").json()
         return data['weather'][0]['main']
-    except Exception as e:
+    except Exception:
         return False
+
+
+def findCity(s_city):
+    return len(get(f"http://api.openweathermap.org/data/2.5/find?"
+                   f"q={s_city}&type=like&APPID={config.appid}").json()['list'])
+
+
+def findCityForCoords(x, y):
+    return len(get(f"http://api.openweathermap.org/data/2.5/find?"
+                   f"lat={x}&lon={y}&type=like&APPID={config.appid}").json()['list'])
+
+
+def infoCity(s_city):
+    data = get(f"http://api.openweathermap.org/data/2.5/weather?"
+               f"q={s_city}&type=like&APPID={config.appid}").json()
+    return data
+
+
+def infoCoords(x, y):
+    data = get(f"http://api.openweathermap.org/data/2.5/weather?"
+               f"lat={x}&lon={y}&type=like&APPID={config.appid}").json()
+    return data
