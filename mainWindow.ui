@@ -294,6 +294,19 @@
      <string>Записывать статистику</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="funbut">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>10</y>
+      <width>101</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Весёлая кнопка</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

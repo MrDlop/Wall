@@ -19,6 +19,7 @@ if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
 if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
     QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
+
 class MyWidget(QMainWindow):
     wither = {'witherBut_1': 'Rain',
               'witherBut_2': 'Clouds',
@@ -45,6 +46,7 @@ class MyWidget(QMainWindow):
         self.label_length.setText(translator.translate(self.label_length.text(), dest=lang).text)
         self.label_clock.setText(translator.translate(self.label_clock.text(), dest=lang).text)
         self.radioStatic.setText(translator.translate(self.radioStatic.text(), dest=lang).text)
+        self.funbut.setText(translator.translate(self.funbut.text(), dest=lang).text)
 
         self.setWindowTitle('Wall')
         self.pushButtonCity.clicked.connect(self.clickedButtonCity)
@@ -67,6 +69,8 @@ class MyWidget(QMainWindow):
         self.butAIImage.setText(translator.translate(self.butAIImage.text(), dest=lang).text)
 
         self.radioStatic.clicked.connect(self.radioStatic_)
+
+        self.funbut.clicked.connect(self.funbut_)
 
         for i in LANGCODES:
             self.languageBox.addItem(i)
@@ -91,6 +95,7 @@ class MyWidget(QMainWindow):
         self.label_length.setText(translator.translate(self.label_length.text(), dest=lang).text)
         self.label_clock.setText(translator.translate(self.label_clock.text(), dest=lang).text)
         self.radioStatic.setText(translator.translate(self.radioStatic.text(), dest=lang).text)
+        self.funbut.setText(translator.translate(self.funbut.text(), dest=lang).text)
         for i in range(1, 7):
             a = eval(f'self.witherBut_{i}')
             b = eval(f'self.label_wither_{i}')
@@ -123,6 +128,19 @@ class MyWidget(QMainWindow):
             p.wait()
 
         windll.user32.SystemParametersInfoW(20, 0, path, 0)
+
+    def funbut_(self):
+        con = connect('bd')
+        cur = con.cursor()
+        a = int(cur.execute('SELECT fun FROM homeInfo').fetchall()[0][0])
+        cur.execute(f"""UPDATE homeInfo SET
+                                                                        fun=1-{a}
+                                                                                        WHERE true""")
+        if not a:
+            cmd = 'python gifWalpaper.py'
+            Popen(cmd, stdout=PIPE, shell=True)
+        con.commit()
+        con.close()
 
     def clickedAIImage(self):
         if self.sender().isChecked():
