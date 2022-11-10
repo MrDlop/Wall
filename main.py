@@ -1,3 +1,4 @@
+import datetime
 from ctypes import windll
 from subprocess import PIPE, Popen
 from sys import exit, argv
@@ -38,6 +39,7 @@ class MyWidget(QMainWindow):
         self.label_latitude.setText(translator.translate(self.label_latitude.text(), dest=lang).text)
         self.label_length.setText(translator.translate(self.label_length.text(), dest=lang).text)
         self.label_clock.setText(translator.translate(self.label_clock.text(), dest=lang).text)
+        self.radioStatic.setText(translator.translate(self.radioStatic.text(), dest=lang).text)
 
         self.setWindowTitle('Wall')
         self.pushButtonCity.clicked.connect(self.clickedButtonCity)
@@ -58,6 +60,8 @@ class MyWidget(QMainWindow):
 
         self.butAIImage.clicked.connect(self.clickedAIImage)
         self.butAIImage.setText(translator.translate(self.butAIImage.text(), dest=lang).text)
+
+        self.radioStatic.clicked.connect(self.radioStatic_)
 
         for i in LANGCODES:
             self.languageBox.addItem(i)
@@ -81,6 +85,7 @@ class MyWidget(QMainWindow):
         self.label_latitude.setText(translator.translate(self.label_latitude.text(), dest=lang).text)
         self.label_length.setText(translator.translate(self.label_length.text(), dest=lang).text)
         self.label_clock.setText(translator.translate(self.label_clock.text(), dest=lang).text)
+        self.radioStatic.setText(translator.translate(self.radioStatic.text(), dest=lang).text)
         for i in range(1, 7):
             a = eval(f'self.witherBut_{i}')
             b = eval(f'self.label_wither_{i}')
@@ -90,15 +95,21 @@ class MyWidget(QMainWindow):
         home = cur.execute(f"""SELECT * FROM homeInfo""").fetchall()[0]
 
         path = 'resurse/weather.jpg'
+        if home[3]:
+            data = get(f"http://api.openweathermap.org/data/2.5/weather?"
+                       f"q={home[0]}&type=like&APPID={config.appid}").json()
+            weather = data['weather'][0]['main']
+        else:
+            data = get(f"http://api.openweathermap.org/data/2.5/weather?"
+                       f"lat={home[1]}&lon={home[2]}&type=like&APPID={config.appid}").json()
+            weather = data['weather'][0]['main']
+        if home[7]:
+            t = datetime.datetime.now().day
+            with open("data.csv", "a") as f:
+                f.write(f"\n{t}.{datetime.datetime.now().month}."
+                        f"{datetime.datetime.now().year};{data['main']['temp']};{weather}")
+                f.close()
         if home[5] == 0:
-            if home[3]:
-                data = get(f"http://api.openweathermap.org/data/2.5/weather?"
-                           f"q={home[0]}&type=like&APPID={config.appid}").json()
-                weather = data['weather'][0]['main']
-            else:
-                data = get(f"http://api.openweathermap.org/data/2.5/weather?"
-                           f"lat={home[1]}&lon={home[2]}&type=like&APPID={config.appid}").json()
-                weather = data['weather'][0]['main']
             path = cur.execute(f"""SELECT path FROM pathToImage WHERE title='{weather}'""").fetchall()[0][0]
             con.close()
         elif home[5] == 1:
@@ -126,8 +137,27 @@ class MyWidget(QMainWindow):
             con.commit()
             con.close()
 
+    def radioStatic_(self):
+        if self.sender().isChecked():
+            con = connect('bd')
+            cur = con.cursor()
+            cur.execute(f"""UPDATE homeInfo SET
+                                                                static=1
+                                                                                WHERE true""")
+            con.commit()
+            con.close()
+        else:
+            con = connect('bd')
+            cur = con.cursor()
+            cur.execute(f"""UPDATE homeInfo SET
+                                                static=0
+                                                                WHERE true""")
+            con.commit()
+            con.close()
+
     def clickedAutoload(self):
-        flag = QMessageBox.question(self, "Предупреждение", "Вы точно хотите поставить программу на автозагрузку")
+        flag = QMessageBox.question(self, "Предупреждение", "Вы точно хотите "
+                                                            "поставить программу на автозагрузку")
         if flag == QMessageBox.Yes:
             USER_NAME = getuser()
             bat_path = r'C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\start.lnk' % USER_NAME

@@ -1,6 +1,7 @@
 from sqlite3 import connect
 
 from requests import get
+from sys import exit
 
 import config
 
@@ -30,7 +31,7 @@ async def send_message():
     await client.send_message('@sber_rudalle_xl_bot', weather)
 
 
-@client.on(events.NewMessage(chats=('@sber_rudalle_xl_bot')))
+@client.on(events.NewMessage(chats='@sber_rudalle_xl_bot'))
 async def normal_handler(event):
     if event.message.photo:
         await event.message.download_media("resurse/weather.jpg")
