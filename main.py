@@ -3,7 +3,7 @@ from ctypes import windll
 from subprocess import PIPE, Popen
 from sys import exit, argv
 from sqlite3 import connect
-from PyQt5 import uic
+from PyQt5 import uic, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
 from requests import get
 from shutil import copy
@@ -13,6 +13,11 @@ from googletrans import LANGCODES, Translator, LANGUAGES
 import config
 import function
 
+if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+    QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
+if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+    QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
 class MyWidget(QMainWindow):
     wither = {'witherBut_1': 'Rain',
