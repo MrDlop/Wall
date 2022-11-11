@@ -1,3 +1,4 @@
+from ctypes import windll
 from sqlite3 import connect
 
 from requests import get
@@ -35,6 +36,8 @@ async def send_message():
 async def normal_handler(event):
     if event.message.photo:
         await event.message.download_media("resurse/weather.jpg")
+        if home[5]:
+            windll.user32.SystemParametersInfoW(20, 0, "resurse/weather.jpg", 0)
         exit()
 
 

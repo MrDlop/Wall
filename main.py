@@ -38,8 +38,6 @@ class MyWidget(QMainWindow):
 
         translator = Translator()
 
-        self.languageBox.setCurrentIndex(self.languageBox.findText(LANGUAGES[lang]))
-
         self.label_city.setText(translator.translate(self.label_city.text(), dest=lang).text)
         self.label_coords.setText(translator.translate(self.label_coords.text(), dest=lang).text)
         self.label_latitude.setText(translator.translate(self.label_latitude.text(), dest=lang).text)
@@ -74,6 +72,7 @@ class MyWidget(QMainWindow):
 
         for i in LANGCODES:
             self.languageBox.addItem(i)
+        self.languageBox.setCurrentIndex(self.languageBox.findText(LANGUAGES[lang]))
 
     def clickedStart(self):
         con = connect('bd')
@@ -104,7 +103,6 @@ class MyWidget(QMainWindow):
 
         home = cur.execute(f"""SELECT * FROM homeInfo""").fetchall()[0]
 
-        path = 'resurse/weather.jpg'
         if home[3]:
             data = get(f"http://api.openweathermap.org/data/2.5/weather?"
                        f"q={home[0]}&type=like&APPID={config.appid}").json()
@@ -122,12 +120,13 @@ class MyWidget(QMainWindow):
         if home[5] == 0:
             path = cur.execute(f"""SELECT path FROM pathToImage WHERE title='{weather}'""").fetchall()[0][0]
             con.close()
+            windll.user32.SystemParametersInfoW(20, 0, path, 0)
+
         elif home[5] == 1:
             cmd = 'python telegramGeneratePhoto.py'
             p = Popen(cmd, stdout=PIPE, shell=True)
             p.wait()
 
-        windll.user32.SystemParametersInfoW(20, 0, path, 0)
 
     def funbut_(self):
         con = connect('bd')
