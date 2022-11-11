@@ -125,8 +125,6 @@ class MyWidget(QMainWindow):
         elif home[5] == 1:
             cmd = 'python telegramGeneratePhoto.py'
             p = Popen(cmd, stdout=PIPE, shell=True)
-            p.wait()
-
 
     def funbut_(self):
         con = connect('bd')
