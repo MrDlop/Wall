@@ -270,6 +270,9 @@
     <property name="text">
      <string>ИИ картинки</string>
     </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QComboBox" name="languageBox">
     <property name="geometry">
